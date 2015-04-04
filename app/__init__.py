@@ -1,0 +1,71 @@
+import os
+import sys
+from flask import (Flask,
+                   render_template,
+                   jsonify,
+                   redirect,
+                   url_for)
+
+from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.security import (Security,
+                                SQLAlchemyUserDatastore,
+                                login_required,
+                                current_user)
+from flask.ext.migrate import (Migrate, MigrateCommand)
+
+
+# We need to set ROOT_DIR here, so that we are able to explicitly specify
+ROOT_DIR = os.path.abspath(os.path.dirname(__file__))
+
+app = Flask('flask-app-scaffold',
+            static_folder=os.path.join(ROOT_DIR, 'static'),
+            template_folder=os.path.join(ROOT_DIR, 'templates'))
+
+app.config.from_object('settings')
+app.config['ROOT_DIR'] = ROOT_DIR
+
+db = SQLAlchemy(app)
+
+from .users.views import users as users_bp
+app.register_blueprint(users_bp)
+
+
+def get_user_datastore():
+    """ We encapsulate this in a function to avoid cyclic import """
+    from app.users.models import User, Role
+    return SQLAlchemyUserDatastore(db, User, Role)
+
+security = Security(app, get_user_datastore())
+
+
+def install_secret_key(app, filename='secret_key'):
+    """Configure the SECRET_KEY from a file
+    in the instance directory.
+
+    If the file does not exist, print instructions
+    to create it from a shell with a random key,
+    then exit.
+    """
+    filename = os.path.join(app.instance_path, filename)
+
+    try:
+        app.config['SECRET_KEY'] = open(filename, 'rb').read()
+    except IOError:
+        print('Error: No secret key. Create it with:')
+        full_path = os.path.dirname(filename)
+        if not os.path.isdir(full_path):
+            print('mkdir -p {filename}'.format(filename=full_path))
+        print('head -c 24 /dev/urandom > {filename}'.format(filename=filename))
+        sys.exit(1)
+
+if not app.config['DEBUG']:
+    install_secret_key(app)
+
+
+
+
+@app.route('/')
+def index():
+    if current_user.is_authenticated():
+        return redirect(url_for('users.private_profile'))
+    return render_template('home.html');

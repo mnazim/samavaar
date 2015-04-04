@@ -1,0 +1,43 @@
+{% set navigation_bar = [
+    (url_for('users.private_profile'), 'profile', 'Profile', 'auth'),
+    (url_for('users.settings'), 'settings', 'Settings', 'auth'),
+    (url_for('security.logout'), 'logout', 'Logout', 'auth'),
+    ('/', 'index', 'Home', 'anon'),
+    (url_for('security.login'), 'login', 'Login', 'anon'),
+    (url_for('security.register'), 'register', 'Register', 'anon'),
+] -%}
+
+{% set active_page = active_page|default('home') -%}
+<!doctype html>
+<html>
+<head>
+    <title>{% block title %} Flask App Scafold {% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}">
+</style>
+</head>
+<body>
+    <div class="container" cell-spacing="12">
+        <div class="sidebar">
+            {% include "partials/sidebar.html" %}
+        </div>
+        <div class="main">
+            <main>
+                <div class="main__heading">
+                    {% block main_heading %}
+                    Flask App Scafold
+                    {% endblock %}
+                </div>
+                <div class="main__inner">
+                {% block main %}
+                {% include "partials/index_copy.html" %}
+                {% endblock %}
+                </div>
+            </main>
+        </div>
+        <br clear="all">
+    </div>
+    <footer>
+        <a href="https://github.com/mnazim/flask-app-scaffold"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+    </footer>
+</body>
+</html>

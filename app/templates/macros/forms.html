@@ -1,0 +1,22 @@
+{% macro render_field(field, bare=False) %}
+{% if bare %}
+            {{ field(**kwargs)|safe }}
+{% else %}
+    {% set errors = field.errors %}
+    <div class="field__group {% if errors %} field__group-with-errors {% endif %} field__type-{{ field.type }}">
+        <div class="field__label">
+            {{ field.label }}
+        </div>
+        <div class="field__control">
+            {{ field(**kwargs)|safe }}
+        </div>
+        {% if errors %}
+        <div class="field__errors">
+            {% for error in errors %}
+            <div class="field__error">{{ error }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+{% endif %}
+{% endmacro %}

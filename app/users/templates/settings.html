@@ -1,0 +1,17 @@
+{% extends 'profile.html' %}
+{% set active_page = 'settings' %}
+
+{% block main_heading %}Settings{% endblock %}
+{% block main %}
+{% from 'macros/forms.html' import render_field %}
+<form class="form" action="{{ url_for('users.settings') }}" method="POST" name="user_settings_form">
+    {{ form.csrf_token }}
+  {{ render_field(form.email) }}
+  {{ render_field(form.display_name) }}
+  {{ render_field(form.github_name ) }}
+  {{ render_field(form.twitter_name) }}
+    <div class="form__actions">
+        <button type="submit" class="button">Save</button>
+    </div>
+</form>
+{% endblock %}

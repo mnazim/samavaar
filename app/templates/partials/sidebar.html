@@ -1,0 +1,23 @@
+<div class="sidebar__heading">
+flask application scaffold
+</div>
+{% if current_user.is_authenticated() %}
+<div class="sidebar__gravatar">
+    <img src="{{ current_user.gravatar(size="120") }}">
+</div>
+{% endif %}
+<nav>
+    <ul class="sidebar__nav">
+    {% for href, id, caption, auth in navigation_bar %}
+        {% if auth == 'auth' and current_user.is_authenticated() %}
+            <li class="{% if id == active_page %} sidebar__nav__item-active{% endif %} sidebar__nav__item">
+                <a href="{{ href|e }}">{{ caption|e }}</a>
+            </li>
+        {% elif auth == 'anon' and not current_user.is_authenticated() %}
+            <li class="{% if id == active_page %} sidebar__nav__item-active {% endif %} sidebar__nav__item">
+                <a href="{{ href|e }}">{{ caption|e }}</a>
+            </li>
+        {% endif %}
+    {% endfor %}
+    </ul>
+</nav>

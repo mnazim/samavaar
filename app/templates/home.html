@@ -1,0 +1,8 @@
+{% extends 'sitebase.html' %}
+{% set active_page = active_page|default('index') -%}
+{% block nav %}
+<ul>
+    <li {% if active_page=="security.login" %} class="active" {% endif %}> <a href="{{  url_for('security.login') }}">Login</a></li>
+    <li {% if active_page=="security.register" %} class="active" {% endif %}><a href="{{  url_for('security.register') }}">Register</a></li>
+</ul>
+{% endblock %}
