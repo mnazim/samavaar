@@ -13,6 +13,7 @@ Basic flask app scaffold to give me a jump start on projects.
    - Dashboard
    - Settings
    - Public Profile
+ - Basic Gravatar integration.
 
 ## Roadmap
 
@@ -23,7 +24,7 @@ Basic flask app scaffold to give me a jump start on projects.
  
 ## Usage
 
-    git clone git@github.com:mnazim/flask-app-scaffold.git my_app
+    git clone git@github.com:mnazim/flask-app-scaffold.git myapp
     cd myapp
 
 ...and start modifying as per your need.
