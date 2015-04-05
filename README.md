@@ -16,7 +16,7 @@ Basic flask app scaffold to give me a jump start on projects.
  - Basic Gravatar integration.
 
 ## Roadmap
-
+ - Simple notifications app
  - Passwordless login
  - Social login
  - REST API scaffolding
