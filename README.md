@@ -1,9 +1,8 @@
-# Flask App Scaffold
+# Samavaar
 
-Basic flask app scaffold to give me a jump start on projects.
+Samavar is a minimal flask application scaffold to give **me** a jump start on projects.
 
 ### Features
-
  - User authentication. Working features include:
    - Login.
    - Register.
