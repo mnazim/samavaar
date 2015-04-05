@@ -1,24 +1,18 @@
 {% extends 'sitebase.html' %}
 {% set active_page = active_page|default('profile') -%}
 
+{% block title %}{{ account.display_name }} | {{ super() }}{% endblock %}
 
-{% block main_heading %}{{ current_user.display_name }}{% endblock %}
-{% block nav %}
+{% block main_heading %}{% endblock %}
 
-<ul>
-{% for href, id, caption in navigation_bar %}
-  <li{% if id == active_page %} class="active"{% endif
-  %}><a href="{{ href|e }}">{{ caption|e }}</a></li>
-{% endfor %}
-
-</ul>
-{% endblock %}
 {% block main %}
 <div class="profile">
-    <div class="welcome">
-        <p><em>Welcome, {{ current_user.display_name }} {{ active_page }}! This is your profile.</em> It is not visible to anyone, except you.</p>
-        <p>To see how your profile looks to public, visit <strong><a href="/">public profile</a></strong></p>
+    <div class="profile__gravatar">
+        <img src="{{ current_user.gravatar(size="120") }}">
     </div>
+    <div class="profile__displayname">
+        {{ account.display_name }}
+    </div>
+    <small>(this is public profile)</small>
 </div>
-
 {% endblock %}

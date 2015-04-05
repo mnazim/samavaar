@@ -1,7 +1,8 @@
+{% if not  current_user.is_authenticated() %}
 <div class="sidebar__heading">
-flask application scaffold
+    <a href="/">flask application scaffold</a>
 </div>
-{% if current_user.is_authenticated() %}
+{% else %}
 <div class="sidebar__gravatar">
     <img src="{{ current_user.gravatar(size="120") }}">
 </div>
@@ -21,3 +22,11 @@ flask application scaffold
     {% endfor %}
     </ul>
 </nav>
+
+<div class="sidebar__credits">
+<div class="github-fork-ribbon-wrapper left-bottom">
+    <div class="github-fork-ribbon">
+        <a href="https://github.com/mnazim/flask-app-scaffold">Fork me on GitHub</a>
+    </div>
+</div>
+</div>

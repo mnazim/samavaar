@@ -6,3 +6,7 @@
     <li {% if active_page=="security.register" %} class="active" {% endif %}><a href="{{  url_for('security.register') }}">Register</a></li>
 </ul>
 {% endblock %}
+
+{% block main %}
+    {% include "partials/index_copy.html" %}
+{% endblock %}

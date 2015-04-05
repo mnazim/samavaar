@@ -24,6 +24,7 @@ class Role(BaseModel, RoleMixin):
 
 class User(BaseModel, UserMixin):
     __tablename__ = 'users'
+    username = db.Column(db.String(255), unique=True)
     email = db.Column(db.String(255), unique=True)
     password = db.Column(db.String(255))
     active = db.Column(db.Boolean)
@@ -39,17 +40,23 @@ class User(BaseModel, UserMixin):
 
 
     def __init__(self, **kwargs):
-        from pprint import pprint
-        pprint(kwargs)
         self.email = kwargs.pop('email')
         self.password = kwargs.pop('password')
         self.active = kwargs.pop('active')
         self.roles = kwargs.pop('roles')
-        self.data = dict(**kwargs)
+
+        if 'username' in kwargs:
+            self.username = kwargs.pop('username')
+
+        self.data = kwargs
 
 
     def __repr__(self):
         return self.display_name
+
+    @property
+    def slug(self):
+        return self.username or str(self.id)
 
     @property
     def display_name(self):

@@ -39,6 +39,10 @@ class BaseModel(db.Model):
                 self.password = kwargs.pop('password')
                 self.active = kwargs.pop('active')
 
+                # self.data expects valid JSON data;
+                # it is developer's responsibility to provide
+                # transparent serialization of complex object,
+                # before saving to database.
                 self.data = dict(**kwargs)
         """
         pass

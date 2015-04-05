@@ -10,6 +10,11 @@
         <div class="field__control">
             {{ field(**kwargs)|safe }}
         </div>
+        {% if field.description %}
+        <div class="field__description">
+            {{ field.description|safe }}
+        </div>
+        {% endif %}
         {% if errors %}
         <div class="field__errors">
             {% for error in errors %}

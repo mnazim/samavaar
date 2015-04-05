@@ -1,0 +1,14 @@
+{% extends 'sitebase.html' %}
+{% set active_page = active_page|default('dashboard') -%}
+
+{% block main_heading %}{{ current_user.display_name }}'s {{ active_page }}{% endblock %}
+
+{% block main %}
+{% block settings_buttons %}{% endblock %}
+<div class="dashboard">
+    <div class="welcome">
+        <p><em>Welcome, {{ current_user.display_name }}!</em></p>
+        <p><a class="button" href="{{ url_for('users.profile', slug=current_user.slug ) }}">visit public profile</a></p>
+    </div>
+</div>
+{% endblock %}

@@ -28,6 +28,8 @@ db = SQLAlchemy(app)
 
 from .users.views import users as users_bp
 app.register_blueprint(users_bp)
+from social.apps.flask_app.routes import social_auth
+app.register_blueprint(social_auth)
 
 
 def get_user_datastore():
@@ -62,10 +64,13 @@ if not app.config['DEBUG']:
     install_secret_key(app)
 
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
 
 @app.route('/')
 def index():
     if current_user.is_authenticated():
-        return redirect(url_for('users.private_profile'))
+        return redirect(url_for('users.dashboard'))
     return render_template('home.html');

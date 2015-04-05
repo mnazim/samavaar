@@ -1,7 +1,7 @@
 $color1: white;
 $color2: lighten(lightgray,10%);
 $color3: gray;
-$color4: teal;
+$color4: deepskyblue;
 $color5: black;
 
 $body-bg: $color1;
@@ -18,6 +18,16 @@ $font-heading: $font-serif;
     content: " ";
     display: table;
     clear: both;
+}
+
+@mixin gravatar {
+    margin-bottom: 12px;
+    img {
+        height: 120px;
+        width: 120px;
+        border-radius: 100px;
+        margin: 0 auto;
+    }
 }
 
 * {
@@ -39,6 +49,7 @@ a {
 }
 
 a:hover {
+    color: darken($color4, 20%);
     text-decoration: none;
 }
 
@@ -48,28 +59,34 @@ h1, h1, h3, h4, h5, h6 {
 
 .container {
     max-width: 800px;
-    min-height: 75vh;
     position: relative;
 }
 
 .sidebar {
     position: absolute;
-    width: 150px;
+    width: 135px;
     vertical-align: top;
     background: $color2;
     text-align: center;
     padding:  0;
-    margin: 24px;
-    min-height: 80vh;
+    padding-top: 12px;
+    min-height: 100vh;
 
-    &__heading {
+    &__heading a {
+        position: absolute;
+        display: block;
         font-size: 20px;
         font-weight: 600;
         font-variant:small-caps;
         width: 100%;
-        background: $color5;
+        background: $color4;
         color: $color2;
         padding: 12px 6px;
+        top:0;
+
+        &:hover {
+            background: darken($color4, 25%);
+        }
     }
     &__gravatar {
         width: 100%;
@@ -83,6 +100,8 @@ h1, h1, h3, h4, h5, h6 {
     }
 
     &__nav {
+        position: absolute;
+        top: 150px;
         padding: 0;
         margin: 0;
         width: 100%;
@@ -93,55 +112,66 @@ h1, h1, h3, h4, h5, h6 {
             padding: 0;
             cursor: pointer;
             width: 100%;
+            margin-top: 3px;
 
             a {
                 text-align: right;
                 display: block;
                 text-transform: capitalize;
                 text-decoration: none;
-                padding: 4px 8px;
+                padding: 4px; 
                 color: $color5;
                 font-weight: 500;
-                margin: 3px 0;
+                margin: 0;
                 text-transform: lowercase;
                 font-variant: small-caps;
 
                 &:hover {
-                    background: $color5;
+                    background: $color4;
                     color: $color1;
                 }
             }
             &-active a {
-                background: $color5;
+                background: $color4;
                 color: $color1;
             }
         }
 
     }
+    &__credits {
+        position: absolute;
+        bottom: 6px;
+        text-align: center;
+        width: 100%;
+    }
 }
 
 .main {
     position: absolute;
-    left: 200px;
-    width: 100%;
-    padding-top: 0;
-    margin: 24px;
-    margin-left: 0;
-    min-height: 80vh;
+    left: 160px;
+    width: 520px;
+    padding: 0;
+    padding-top: 12px;
+    margin: 0;
+    min-height: 100vh;
 
     &__heading {
         width: 100%;
-        padding: 12px 0 6px 12px;
+        padding: 0;
         font-size: 24px;
         font-family: $font-serif;
         font-weight: 600;
         margin-bottom: 18px;
     }
     &__inner {
-        padding: 6px;
+        padding: 0;
     }
     .index_copy {
         font-family: Georgia, serif;
+        &__itworks {
+            font-size: 24px;
+            font-variant: all-small-caps;
+        }
     }
 }
 
@@ -180,6 +210,13 @@ h1, h1, h3, h4, h5, h6 {
             @include clearfix;
         }
         &__label {
+            font-variant: all-small-caps;
+        }
+        &__description {
+            font-size: 14px;
+            color: lighten($color5, 30%);
+            background: $color2;
+            padding: 6px;
         }
         &__type {
             &-BooleanField {
@@ -211,17 +248,21 @@ h1, h1, h3, h4, h5, h6 {
     margin:0 10px 0 0;
     padding:6px 12px;
     font-size:18px;
-    line-height:1.8
-    ;vertical-align:bottom;
+    line-height:1.8;
+    vertical-align:bottom;
     -webkit-appearance:none;
     -moz-appearance:none;
     appearance:none;
     box-shadow:none;
     cursor: pointer;
-  color: #fff;
-  background-color: $color4;
-  background-image: linear-gradient(top, $color4, $color5);
-  border: none;
+    color: $color1;
+    background-color: $color4;
+    background-image: linear-gradient(top, $color4, $color5);
+    border: none;
+    font-family: $font-sans;
+    font-variant: all-small-caps;
+    min-width: 120px;
+    text-align: center;
 }
 
 .button:focus{
@@ -229,10 +270,74 @@ h1, h1, h3, h4, h5, h6 {
 }
 .button:hover,
 .button.hover {
-  box-shadow: inset 0 0 0 1px #27496d,0 5px 15px #193047;
+    box-shadow: inset 0 0 0 1px $color4,0 5px 15px $color3;
+  color: $color2;
 }
 
 .button:active,
 .button.active {
-  box-shadow: inset 0 0 0 1px #27496d,inset 0 5px 30px #193047;
+  box-shadow: inset 0 0 0 1px $color4,inset 0 5px 30px $color2;
+}
+
+ul.tabs {
+    list-style: none;
+    padding:0;
+    margin:0;
+    margin-bottom: 24px;
+
+    li {
+        display: inline-block;
+        a {
+            display: block;
+            font-size: 15px;
+            padding: 3px 6px;
+            width: auto;
+        }
+    }
+                
+}
+
+.flashes {
+    list-style: none;
+    padding: 0;
+    margin:0;
+
+    &__flash {
+        display: block;
+        min-width: auto;
+        background: darken(deepskyblue, 20%);
+        padding: 12px;
+        border-radius: 5px;
+        font-size: 16px;
+        font-family: $font-sans;
+        color: $color1;
+        margin-bottom: 12px;
+
+        &-success{
+            background: green;
+        }
+
+        &-warning{
+            background: orange;
+            color: $color1;
+        }
+
+        &-error{
+            background: red;
+            color: $color1;
+        }
+    }
+}
+
+.profile {
+    &__displayname {
+        font-size: 24px;
+        font-weight: 500;
+    }
+    &__gravatar {
+        @include gravatar;
+    }
+    small {
+        font-size: 13px;
+    }
 }

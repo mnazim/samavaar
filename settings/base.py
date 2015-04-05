@@ -9,6 +9,7 @@ def app_root(*args):
     return path
 
 
+
 DEBUG = False
 SECRET_KEY = 'asDASD#@$Sdfl = sdfy9s8dn; @#$gh76sftW423 jg76sdvSDfsi7-df623442'
 DATABASE_CONNECT_OPTIONS = {}
@@ -23,7 +24,11 @@ SECURITY_LOGIN_WITHOUT_CONFIRMATION = True
 SECURITY_DEFAULT_REMEMBER_ME = True
 SECURITY_SEND_REGISTER_EMAIL = False
 
-
-
+SOCIAL_AUTH_USER_MODEL = 'apps.users.models.User'
 
 DEFAULT_AVATAR_PATH = '/static/images/defaultavatar.png'
+
+APP = {
+    'domain_name': 'example.com',
+    'base_url': 'http://example.com/',
+}

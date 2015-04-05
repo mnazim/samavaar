@@ -4,10 +4,14 @@ from flask import (Blueprint,
                    abort,
                    redirect,
                    url_for,
-                   request)
+                   request,
+                   flash)
 from jinja2 import (TemplateNotFound)
+import validators
+from werkzeug.exceptions import abort
 from flask.ext.security import (login_required,
                                 current_user)
+from app.helpers.shortcuts import get_object_or_404
 from app.users.models import User
 from app import db
 
@@ -15,10 +19,14 @@ from .forms import SettingsForm
 
 users = Blueprint('users', __name__, template_folder='templates')
 
-@users.route('/profile')
+@users.route('/dashboard')
 @login_required
-def private_profile():
-    return render_template('profile.html')
+def dashboard():
+    flash('This is an informational message.', 'info')
+    flash('This is a success message.', 'success')
+    flash('This is a warning message.', 'warning')
+    flash('This is an error message.', 'error')
+    return render_template('dashboard.html')
 
 
 @users.route('/settings', methods=['GET', 'POST'])
@@ -26,11 +34,13 @@ def private_profile():
 def settings():
     user = User.query.get(current_user.id)
     form = SettingsForm(email=user.email,
+                        username=user.data.get('username', ''),
                         display_name=user.data.get('display_name', ''),
                         github_name=user.data.get('github', ''),
                         twitter_name=user.data.get('twitter', ''))
     if form.validate_on_submit():
         user.email = form.email.data
+        user.username = form.username.data
         data = {
             'display_name' : form.display_name.data,
             'github' : form.github_name.data,
@@ -40,11 +50,18 @@ def settings():
         db.session.add(user)
         db.session.commit()
 
-        return redirect(url_for('users.private_profile'))
+        return redirect(url_for('users.dashboard'))
     return render_template('settings.html', form=form)
 
 
-@users.route('/<id>')
-@login_required
-def public_profile(id):
-    return render_template('public_profile.html')
+
+@users.route('/<slug>')
+def profile(slug):
+    if validators.uuid(slug):
+        account = get_object_or_404(User, User.id == slug)
+    elif isinstance(slug, basestring):
+        account = get_object_or_404(User, User.username == slug)
+    else:
+        abort(404)
+
+    return render_template('profile.html', account=account)
