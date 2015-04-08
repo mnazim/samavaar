@@ -23,7 +23,7 @@ Samavar is a minimal flask application scaffold to give **me** a jump start on p
  
 ## Usage
 
-    git clone git@github.com:mnazim/flask-app-scaffold.git myapp
+    git clone git@github.com:mnazim/samavaar.git myapp
     cd myapp
 
 ...and start modifying as per your need.
