@@ -37,8 +37,7 @@ Samavar is a minimal flask application scaffold to give **me** a jump start on p
  - SQL or NoSQL? Why not both?
    - `BaseModel` provides a JSONB field named`data`.
    - Only primary keys, foreign keys, and fields required by third party extensions are stored as separate fields on a model. Everything else going into a JSONB field named `data`.
- - A soft delete mechanism, handled using a Boolean field named `is_trashed`.
-   -  `delete()` method only flips `is_trashed` field.
+   - `is_disabled` flag on rows controls whether they appear in the query results or not. `BaseModel.disable` and `BaseModel.enable` are helper methods to flip `is_disabled` Disable and enable semantics are client class to implement.
 
 ## Screenshots
 

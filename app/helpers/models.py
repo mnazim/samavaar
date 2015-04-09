@@ -16,7 +16,7 @@ class BaseModel(db.Model):
 
     data = db.Column(JSONB)
 
-    is_trashed = db.Column(db.Boolean, default=False)
+    is_disabled = db.Column(db.Boolean, default=False)
     created = db.Column(db.DateTime,
                         default=datetime.utcnow)
     modified = db.Column(db.DateTime,
@@ -47,16 +47,15 @@ class BaseModel(db.Model):
         """
         pass
 
-    def _trash(self):
-        self.is_trashed = True
-        db.session.add(self)
-        db.session.commit()
+    def disable(self):
+        self.is_disabled = True
 
-    def delete(self, *args, **kwargs):
-        self._trash()
+    @property
+    def is_enabled(self):
+        return not self.is_disable
 
-    def destroy(self, *args, **kwargs):
-        super(User, self).delete(*args, **kwargs)
+    def enable(self):
+        self.is_disabled = False
 
     def update_data(self, data):
         assert(isinstance(data, dict))
@@ -64,3 +63,9 @@ class BaseModel(db.Model):
         _d = self.data.copy()
         _d.update(data)
         self.data = _d
+
+    def get_fulltext_keys(self):
+        """
+        Return a list of keys full text indexing should look for in data field.
+        """
+        return []

@@ -34,7 +34,7 @@ def dashboard():
 def settings():
     user = User.query.get(current_user.id)
     form = SettingsForm(email=user.email,
-                        username=user.data.get('username', ''),
+                        username=user.username,
                         display_name=user.data.get('display_name', ''),
                         github_name=user.data.get('github', ''),
                         twitter_name=user.data.get('twitter', ''))
