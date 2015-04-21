@@ -14,12 +14,13 @@ Samavar is a minimal flask application scaffold to give **me** a jump start on p
    - Public Profile
  - Basic Gravatar integration.
 
-## Roadmap
+## Roadmap (in no particular order)
  - Simple notifications app
  - Passwordless login
  - Social login
  - REST API scaffolding
  - React frontend scaffolding
+ - Test suite and code coverage.
  
 ## Usage
 
