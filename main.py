@@ -14,19 +14,12 @@ from flask.ext.security import (Security,
 from flask.ext.migrate import (Migrate, MigrateCommand)
 
 
-# We need to set ROOT_DIR here, so that we are able to explicitly specify
-ROOT_DIR = os.path.abspath(os.path.dirname(__file__))
-
-app = Flask('flask-app-scaffold',
-            static_folder=os.path.join(ROOT_DIR, 'static'),
-            template_folder=os.path.join(ROOT_DIR, 'templates'))
-
+app = Flask('flask-app-scaffold')
 app.config.from_object('settings')
-app.config['ROOT_DIR'] = ROOT_DIR
 
 db = SQLAlchemy(app)
 
-from .users.views import users as users_bp
+from users.views import users as users_bp
 app.register_blueprint(users_bp)
 from social.apps.flask_app.routes import social_auth
 app.register_blueprint(social_auth)
@@ -34,7 +27,7 @@ app.register_blueprint(social_auth)
 
 def get_user_datastore():
     """ We encapsulate this in a function to avoid cyclic import """
-    from app.users.models import User, Role
+    from users.models import User, Role
     return SQLAlchemyUserDatastore(db, User, Role)
 
 security = Security(app, get_user_datastore())

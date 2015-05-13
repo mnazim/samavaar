@@ -11,9 +11,9 @@ import validators
 from werkzeug.exceptions import abort
 from flask.ext.security import (login_required,
                                 current_user)
-from app.helpers.shortcuts import get_object_or_404
-from app.users.models import User
-from app import db
+from helpers.shortcuts import get_object_or_404
+from users.models import User
+from main import db
 
 from .forms import SettingsForm
 

@@ -39,6 +39,7 @@ Samavar is a minimal flask application scaffold to give **me** a jump start on F
    - `BaseModel` provides a JSONB field named`data`.
    - Only primary keys, foreign keys, and fields required by third party extensions are stored as separate fields on a model. Everything else going into a JSONB field.
    - `is_disabled` flag on records controls whether the record appears in the query results or not. `BaseModel.disable` and `BaseModel.enable` are helper methods to flip `is_disabled`. Implementing semantics around disabled/enabled states are left for client class to implement.
+   - Samavaar has a flatter directory structure than usually suggested for flask apps, for instance, in this [Large App Howto](https://github.com/mitsuhiko/flask/wiki/Large-app-how-to).
 
 ## Screenshots
 

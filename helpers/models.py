@@ -4,7 +4,7 @@ from sqlalchemy.dialects.postgres import JSONB
 from sqlalchemy_utils import JSONType
 from sqlalchemy_utils import UUIDType
 
-from app import db
+from main import db
 
 
 class BaseModel(db.Model):

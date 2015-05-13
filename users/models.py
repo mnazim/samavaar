@@ -4,9 +4,9 @@ from flask.ext.security import (UserMixin,
                                 RoleMixin)
 from sqlalchemy_utils import (IPAddressType,
                               UUIDType)
-from app import db
+from main import db
 
-from app.helpers.models import BaseModel
+from helpers.models import BaseModel
 
 
 roles_users = db.Table(

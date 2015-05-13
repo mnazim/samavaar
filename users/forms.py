@@ -1,7 +1,7 @@
 from flask.ext.wtf import Form
 import wtforms
 from wtforms.validators import DataRequired
-from app import app
+from main import app
 
 class SettingsForm(Form):
     email = wtforms.TextField(validators=[DataRequired()])

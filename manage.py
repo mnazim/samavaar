@@ -4,7 +4,7 @@ from flask.ext.script import Manager
 from flask.ext.migrate import (Migrate,
                                MigrateCommand)
 
-from app import (app,
+from main import (app,
                  db)
 
 migrate = Migrate(app, db)
